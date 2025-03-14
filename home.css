@@ -1,0 +1,361 @@
+.home {
+
+    background-color: #c7c7c72e;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.home .div {
+    background-color: #c7c7c72e;
+    width: 390px;
+    height: 904px;
+    position: relative;
+}
+
+.home .overlap {
+    position: absolute;
+    width: 390px;
+    height: 405px;
+    top: 0;
+    left: 0;
+    background-image: url(/img/wal.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.home .search {
+    position: absolute;
+    width: 327px;
+    height: 40px;
+    top: 194px;
+    left: 32px;
+}
+
+.home .overlap-group {
+    position: relative;
+    width: 325px;
+    height: 40px;
+    background-color: #ffffff;
+    border-radius: 30px;
+}
+
+.home .text-wrapper {
+    position: absolute;
+    width: 211px;
+    top: -15px;
+    left: 58px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.home .overlap-2 {
+    position: absolute;
+    width: 390px;
+    height: 39px;
+    top: 0;
+    left: 0;
+}
+
+.home .rectangle {
+    width: 390px;
+    height: 39px;
+    background-color: #ffffff;
+    opacity: 0.4;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.home .img {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    top: 11px;
+    left: 364px;
+}
+
+.home .vector-2 {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    top: 11px;
+    left: 341px;
+}
+
+.home .vector-3 {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    left: 316px;
+}
+
+.home .logo-no-background {
+    position: absolute;
+    width: 52px;
+    height: 39px;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.home .text-wrapper-2 {
+    position: absolute;
+    top: 360px;
+    left: 100px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.home .group {
+    position: absolute;
+    width: 357px;
+    height: 176px;
+    top: 431px;
+    left: 17px;
+}
+
+.home .overlap-3 {
+    position: relative;
+    width: 355px;
+    height: 176px;
+    border-radius: 10px;
+}
+
+.home .rectangle-2 {
+    width: 355px;
+    height: 176px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.home .text-wrapper-3 {
+    position: absolute;
+    top: 4px;
+    left: 104px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.home .kodai {
+    position: absolute;
+    width: 152px;
+    height: 94px;
+    top: 53px;
+    left: 26px;
+}
+
+.home .overlap-group-2 {
+    position: relative;
+    width: 150px;
+    height: 94px;
+    background-color: #fffcfc;
+    border-radius: 10px;
+}
+
+.home .ko {
+    position: absolute;
+    width: 136px;
+    height: 63px;
+    top: 9px;
+    left: 7px;
+    object-fit: cover;
+}
+
+.home .text-wrapper-4 {
+    position: absolute;
+    width: 88px;
+    top: 63px;
+    left: 31px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.home .tirupati {
+    position: absolute;
+    width: 152px;
+    height: 100px;
+    top: 53px;
+    left: 187px;
+}
+
+.home .overlap-4 {
+    position: relative;
+    width: 150px;
+    height: 100px;
+}
+
+.home .rectangle-3 {
+    width: 150px;
+    height: 94px;
+    background-color: #fffcfc;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.home .text-wrapper-5 {
+    position: absolute;
+    width: 126px;
+    top: 63px;
+    left: 12px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.home .tri {
+    position: absolute;
+    width: 136px;
+    height: 63px;
+    top: 9px;
+    left: 5px;
+    object-fit: cover;
+}
+
+.home .recent {
+    position: absolute;
+    width: 359px;
+    height: 176px;
+    top: 645px;
+    left: 17px;
+}
+
+.home .text-wrapper-6 {
+    position: absolute;
+    top: 0;
+    left: 95px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.home .text-wrapper-7 {
+    position: absolute;
+    top: 82px;
+    left: 57px;
+    opacity: 0.6;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 30px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.home .p {
+    position: absolute;
+    top: 857px;
+    left: 58px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+/* INPUTS */
+
+.home .vector {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 185px;
+    left: 320px;
+}
+
+.input-container {
+    --c-text: rgb(0, 0, 0);
+    --c-bg: rgb(252, 252, 252);
+    --c-outline: rgb(0, 0, 0);
+    display: grid;
+    gap: 100px;
+    position: relative;
+    width: 300px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    top: 180px;
+    left: 8%;
+}
+
+.input-field {
+    padding: 0.5em 0.75em;
+    border-radius: 0.2em;
+    border: 1px solid var(--c-border, currentColor);
+    color: var(--c-text);
+    font-size: 1rem;
+    letter-spacing: 0.1ch;
+    width: 100%;
+}
+
+.input-field:not(:placeholder-shown) + .input-label {
+    transform: translateY(-220%);
+    opacity: 1;
+}
+
+.input-field:invalid {
+    --c-border: rgb(0, 0, 0);
+    --c-text: rgb(0, 0, 0);
+    --c-outline: rgb(0, 0, 0);
+}
+
+.input-field:is(:disabled, :read-only) {
+    --c-border: rgb(150, 150, 150);
+    --c-text: rgb(170, 170, 170);
+}
+
+.input-field:is(:focus, :focus-visible) {
+    outline: 2px solid var(--c-outline);
+    outline-offset: 2px;
+}
+
+.input-label {
+    --timing: 200ms ease-in;
+    position: absolute;
+    left: 0;
+    top: 70%;
+    transition: transform var(--timing), opacity var(--timing);
+    transform: translateY(-50%);
+    opacity: 0;
+    color: var(--c-text);
+    font-weight: 500;
+}

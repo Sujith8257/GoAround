@@ -1,0 +1,223 @@
+.login {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.login .overlap-wrapper {
+    background-color: #ffffff;
+    width: 390px;
+    height: 707px;
+}
+
+.login .overlap {
+    height: 707px;
+    background-image: url(/img/wal.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.login .form {
+    position: relative;
+    width: 236px;
+    height: 444px;
+    top: 136px;
+    left: 77px;
+    background-color: #dddddd40;
+    border-radius: 15px;
+    box-shadow: 0px 4px 30px #0000001a;
+}
+
+.login .logo-no-background {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    top: 10px;
+    left: 38px;
+    object-fit: cover;
+}
+
+.login .button {
+    all: unset;
+    box-sizing: border-box;
+    position: absolute;
+    width: 111px;
+    height: 39px;
+    top: 357px;
+    left: 58px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    transform: rotate(180deg);
+    box-shadow: -1px -1px 3px #ffffff, 1px 1px 3px #b5b5b5;
+}
+
+.login .text-wrapper {
+    position: absolute;
+    width: 118px;
+    height: 29px;
+    top: 5px;
+    left: -4px;
+    transform: rotate(180deg);
+    font-family: "Roboto-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.login .enter-passowrd {
+    position: absolute;
+    width: 182px;
+    height: 42px;
+    top: 265px;
+    left: 25px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid;
+    border-color: #e5e5e5;
+}
+
+.login .overlap-group {
+    position: relative;
+    width: 168px;
+    height: 20px;
+    top: 11px;
+    left: 13px;
+}
+
+.login .div-placeholder {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 168px;
+    height: 15px;
+}
+
+.login .div {
+    position: absolute;
+    width: 99px;
+    height: 15px;
+    top: 0;
+    left: 0;
+    font-family: "Roboto-Regular", Helvetica;
+    font-weight: 400;
+    color: #757575;
+    font-size: 13.3px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.login .frame {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 290px;
+    left: 170px;
+}
+
+.login .email{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 210px;
+    left: 180px;
+}
+
+.login .enter-email {
+    position: absolute;
+    width: 182px;
+    height: 42px;
+    top: 197px;
+    left: 27px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid;
+    border-color: #e5e5e5;
+}
+
+.login .div-wrapper {
+    position: relative;
+    top: 14px;
+    left: 13px;
+    width: 168px;
+    height: 15px;
+}
+
+/* INPUTS */
+
+.input-container {
+    --c-text: rgb(0, 0, 0);
+    --c-bg: rgb(252, 252, 252);
+    --c-outline: rgb(0, 0, 0);
+    display: grid;
+    gap: 100px;
+    position: relative;
+    max-width: 190px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    top: 280px;
+    left: 5px;
+}
+
+.input-field {
+    padding: 0.5em 0.75em;
+    border-radius: 0.2em;
+    border: 1px solid var(--c-border, currentColor);
+    color: var(--c-text);
+    font-size: 1rem;
+    letter-spacing: 0.1ch;
+    width: 100%;
+}
+
+.input-field:not(:placeholder-shown) + .input-label {
+    transform: translateY(-220%);
+    opacity: 1;
+}
+
+.input-field:invalid {
+    --c-border: rgb(0, 0, 0);
+    --c-text: rgb(0, 0, 0);
+    --c-outline: rgb(0, 0, 0);
+}
+
+.input-field:is(:disabled, :read-only) {
+    --c-border: rgb(150, 150, 150);
+    --c-text: rgb(170, 170, 170);
+}
+
+.input-field:is(:focus, :focus-visible) {
+    outline: 2px solid var(--c-outline);
+    outline-offset: 2px;
+}
+
+.input-label {
+    --timing: 200ms ease-in;
+    position: absolute;
+    left: 0;
+    top: 70%;
+    transition: transform var(--timing), opacity var(--timing);
+    transform: translateY(-50%);
+    opacity: 0;
+    color: var(--c-text);
+    font-weight: 500;
+}
+
+.input-container-1 {
+    --c-text: rgb(0, 0, 0);
+    --c-bg: rgb(252, 252, 252);
+    --c-outline: rgb(255, 255, 255);
+    display: grid;
+    gap: 100px;
+    position: relative;
+    width: 165px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    top: 180px;
+    left: 19px;
+}

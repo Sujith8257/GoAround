@@ -1,0 +1,339 @@
+.lander {
+    background-color: #c7c7c72e;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.lander .div {
+    background-color: #c7c7c72e;
+    width: 390px;
+    height: 1112px;
+    position: relative;
+}
+
+.lander .overlap {
+    position: absolute;
+    width: 390px;
+    height: 375px;
+    top: 0;
+    left: 0;
+    background-image: url(/img/tri.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.lander .rectangle {
+    width: 390px;
+    height: 39px;
+    top: 0;
+    background-color: #ffffff;
+    opacity: 0.4;
+    position: absolute;
+    left: 0;
+}
+
+.lander .vector {
+    left: 361px;
+    position: absolute;
+    width: 17px;
+    height: 8px;
+    top: 4px;
+}
+
+.lander .img {
+    left: 334px;
+    position: absolute;
+    width: 17px;
+    height: 8px;
+    top: 4px;
+}
+
+.lander .logo-no-background {
+    position: absolute;
+    width: 52px;
+    height: 39px;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.lander .text-wrapper {
+    position: absolute;
+    top: 397px;
+    left: 119px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.lander .hotels {
+    position: absolute;
+    width: 372px;
+    height: 180px;
+    top: 677px;
+    left: 11px;
+}
+
+.lander .overlap-group {
+    position: relative;
+    width: 368px;
+    height: 180px;
+    border-radius: 10px;
+}
+
+.lander .rectangle-2 {
+    width: 368px;
+    height: 180px;
+    top: 0;
+    background-color: #ffffff;
+    border-radius: 10px;
+    opacity: 0.5;
+    position: absolute;
+    left: 0;
+}
+
+.lander .p {
+    position: absolute;
+    top: 72px;
+    left: 103px;
+    opacity: 0.6;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.lander .text-wrapper-2 {
+    position: absolute;
+    top: 0;
+    left: 112px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.lander .famous-places {
+    position: absolute;
+    width: 370px;
+    height: 183px;
+    top: 462px;
+    left: 11px;
+}
+
+.lander .overlap-2 {
+    position: relative;
+    width: 368px;
+    height: 183px;
+}
+
+.lander .rectangle-3 {
+    width: 368px;
+    height: 180px;
+    top: 3px;
+    position: absolute;
+    left: 0;
+}
+
+.lander .temple {
+    position: absolute;
+    width: 157px;
+    height: 121px;
+    top: 42px;
+    left: 8px;
+}
+
+.lander .overlap-group-2 {
+    position: relative;
+    width: 155px;
+    height: 121px;
+}
+
+.lander .rectangle-4 {
+    position: absolute;
+    width: 155px;
+    height: 117px;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.lander .text-wrapper-3 {
+    position: absolute;
+    width: 123px;
+    top: 84px;
+    left: 16px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.lander .tri {
+    position: absolute;
+    width: 139px;
+    height: 78px;
+    top: 6px;
+    left: 8px;
+    object-fit: cover;
+}
+
+.lander .japali {
+    position: absolute;
+    width: 157px;
+    height: 125px;
+    top: 42px;
+    left: 193px;
+}
+
+.lander .overlap-3 {
+    position: relative;
+    width: 155px;
+    height: 125px;
+}
+
+.lander .text-wrapper-4 {
+    position: absolute;
+    top: 81px;
+    left: 13px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.lander .kapl {
+    position: absolute;
+    width: 144px;
+    height: 74px;
+    top: 6px;
+    left: 6px;
+    object-fit: cover;
+}
+
+.lander .res {
+    position: absolute;
+    width: 368px;
+    height: 180px;
+    top: 880px;
+    left: 11px;
+}
+
+.lander .overlap-4 {
+    position: relative;
+    height: 180px;
+    border-radius: 10px;
+}
+
+.lander .restarurant {
+    position: absolute;
+    width: 351px;
+    height: 170px;
+    top: 5px;
+    left: 8px;
+}
+
+.lander .text-wrapper-5 {
+    position: absolute;
+    width: 199px;
+    top: 0;
+    left: 79px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.lander .overlap-group-wrapper {
+    position: absolute;
+    width: 166px;
+    height: 119px;
+    top: 51px;
+    left: 0;
+}
+
+.lander .overlap-group-3 {
+    position: relative;
+    width: 164px;
+    height: 119px;
+}
+
+.lander .rectangle-5 {
+    width: 164px;
+    height: 112px;
+    top: 0;
+    background-color: #ffffff;
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+}
+
+.lander .text-wrapper-6 {
+    position: absolute;
+    top: 75px;
+    left: 63px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}
+
+.lander .overlap-wrapper {
+    position: absolute;
+    width: 172px;
+    height: 119px;
+    top: 51px;
+    left: 179px;
+}
+
+.lander .overlap-5 {
+    position: relative;
+    width: 170px;
+    height: 119px;
+}
+
+.lander .rectangle-6 {
+    width: 170px;
+    height: 112px;
+    top: 0;
+    position: absolute;
+    left: 0;
+}
+
+.lander .text-wrapper-7 {
+    position: absolute;
+    top: 75px;
+    left: 73px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 44px;
+    white-space: nowrap;
+}

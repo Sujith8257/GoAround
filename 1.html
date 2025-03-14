@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Places</title>
+    <link rel="stylesheet" href="lander.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+</head>
+<body>
+    <div class="lander">
+        <div class="div">
+            <div class="overlap">
+                <div class="rectangle"></div>
+                <img class="vector" src="img/image.svg" />
+                <img class="img" src="img/vector.svg" />
+                <img class="logo-no-background" src="img/logo-no-background-1-5.png" />
+            </div>
+            <div class="text-wrapper" id="location-name">Loading...</div>
+            
+            <div class="hotels">
+                <div class="overlap-group">
+                    <div class="rectangle-2"></div>
+                    <p class="p" id="hotels-list">Fetching nearby hotels...</p>
+                    <div class="text-wrapper-2">Near by Hotels</div>
+                </div>
+            </div>
+
+            <div class="famous-places">
+                <div class="overlap-2">
+                    <div class="text-wrapper-2">Near by Places</div>
+                    <div id="places-list">Fetching nearby places...</div>
+                </div>
+            </div>
+
+            <div class="res">
+                <div class="overlap-4">
+                    <div class="rectangle-2"></div>
+                    <div class="restarurant">
+                        <div class="text-wrapper-5">Near by Restaurants</div>
+                        <div id="restaurants-list">Fetching nearby restaurants...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getLocationAndFetchPlaces() {
+            const locationName = localStorage.getItem("selectedLocation"); // Get location from previous page
+            if (!locationName) {
+                alert("No location provided!");
+                return;
+            }
+
+            document.getElementById("location-name").textContent = locationName;
+
+            // Convert location name to coordinates using Google Geocoding API
+            fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(locationName)}&key=AIzaSyDGG7_a_by8bV9TMuklAw1_oaRhSmbUdQw`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "OK") {
+                        const location = data.results[0].geometry.location;
+                        fetchNearbyPlaces(location);
+                    } else {
+                        alert("Location not found!");
+                    }
+                })
+                .catch(error => console.error("Error fetching location:", error));
+        }
+
+        function fetchNearbyPlaces(location) {
+            const map = new google.maps.Map(document.createElement('div'), { center: location, zoom: 15 });
+            const service = new google.maps.places.PlacesService(map);
+
+            function fetchPlaces(type, elementId) {
+                service.nearbySearch({
+                    location: location,
+                    radius: 5000,
+                    type: type
+                }, (results, status) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        document.getElementById(elementId).innerHTML = results.slice(0, 5).map(place => `<p>${place.name}</p>`).join('');
+                    } else {
+                        document.getElementById(elementId).innerText = 'No results found';
+                    }
+                });
+            }
+
+            fetchPlaces('lodging', 'hotels-list');
+            fetchPlaces('restaurant', 'restaurants-list');
+            fetchPlaces('tourist_attraction', 'places-list');
+        }
+
+        window.onload = getLocationAndFetchPlaces;
+    </script>
+</body>
+</html>

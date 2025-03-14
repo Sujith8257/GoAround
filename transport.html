@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transport Options</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      max-width: 420px;
+      margin: auto;
+      background-color: #f8f9fa;
+      position: relative;
+    }
+
+    h1 {
+      color: #343a40;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    #map {
+      width: 100%;
+      height: 350px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      display: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #transportDetails {
+      font-size: 14px;
+      padding: 15px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: left;
+      margin-bottom: 15px;
+    }
+
+    #recommendations {
+      padding: 10px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: left;
+      display: none;
+    }
+
+    .recommendation-card {
+      padding: 10px;
+      background: #f1f1f1;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .recommendation-card img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    #backButton {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    #next, #skip {
+      background-color: #007bff;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .loading {
+      text-align: center;
+      font-size: 14px;
+      color: gray;
+    }
+
+    /* Scroll Down Arrow */
+    #scrollDown {
+      position: fixed;
+      bottom: 60px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 24px;
+      opacity: 0.8;
+      display: none;
+      transition: 0.3s;
+    }
+
+    #scrollDown:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.8);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚗 Transport Options</h1>
+  <div id="transportDetails">Loading transport options...</div>
+  <div id="map"></div>
+  <div id="recommendations">
+    <strong>📍 Recommended Stops:</strong><br>
+    <div class="loading">Finding best stops...</div>
+  </div>
+
+  <button id="backButton" onclick="window.location.href='hotels.html'">⬅ Back</button>
+  <button id="next" onclick="window.location.href='pdf.html'">Next ➡</button>
+  <button id="skip" onclick="window.location.href='pdf.html'">Skip ⏭</button>
+
+  <!-- Scroll Down Arrow -->
+  <div id="scrollDown" onclick="scrollToBottom()">⬇</div>
+
+  <script>
+    let map, directionsService, directionsRenderer, placesService;
+
+    function initTransport() {
+      const travelMode = localStorage.getItem("travelMode");
+      const fromLocation = localStorage.getItem("fromLocation");
+      const toLocation = localStorage.getItem("toLocation");
+
+      if (!travelMode || !fromLocation || !toLocation) {
+        document.getElementById("transportDetails").innerText = "⚠️ Missing travel details. Please go back and enter the details.";
+        return;
+      }
+
+      document.getElementById("transportDetails").innerHTML = `🚀 Route from <b>${fromLocation}</b> to <b>${toLocation}</b>`;
+
+      if (travelMode === "bike" || travelMode === "bus") {
+        document.getElementById("map").style.display = "block";
+        document.getElementById("recommendations").style.display = "block";
+        document.getElementById("scrollDown").style.display = "flex";
+        initMap(fromLocation, toLocation);
+      } else {
+        document.getElementById("transportDetails").innerHTML += "<br>🚆 Train option coming soon!";
+      }
+    }
+
+    function initMap(fromLocation, toLocation) {
+      map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 7,
+        center: { lat: 20.5937, lng: 78.9629 },
+      });
+
+      directionsService = new google.maps.DirectionsService();
+      directionsRenderer = new google.maps.DirectionsRenderer();
+      directionsRenderer.setMap(map);
+      placesService = new google.maps.places.PlacesService(map);
+
+      directionsService.route(
+        {
+          origin: fromLocation,
+          destination: toLocation,
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (result, status) => {
+          if (status === "OK") {
+            directionsRenderer.setDirections(result);
+            findRecommendations(result.routes[0].overview_path);
+          } else {
+            document.getElementById("transportDetails").innerText = "❌ Unable to fetch route. Check locations.";
+          }
+        }
+      );
+    }
+
+    function findRecommendations(routePath) {
+      const recommendationsDiv = document.getElementById("recommendations");
+      recommendationsDiv.innerHTML = "<strong>📍 Recommended Stops:</strong><br>";
+
+      const searchTypes = [
+        { type: "restaurant", icon: "🍽️", label: "Restaurant" },
+        { type: "gas_station", icon: "⛽", label: "Petrol Bunk" },
+        { type: "charging_station", icon: "🔋", label: "EV Charging" },
+        { type: "rest_stop", icon: "🛑", label: "Rest Stop" }
+      ];
+
+      routePath.forEach((location, index) => {
+        if (index % 10 === 0) {
+          searchTypes.forEach(({ type, icon, label }) => {
+            const request = { location, radius: 5000, type };
+            placesService.nearbySearch(request, (results, status) => {
+              if (status === google.maps.places.PlacesServiceStatus.OK) {
+                results.slice(0, 2).forEach((place) => {
+                  recommendationsDiv.innerHTML += `
+                    <div class="recommendation-card">${icon} <b>${place.name}</b> (${label})</div>
+                  `;
+                });
+              }
+            });
+          });
+        }
+      });
+    }
+
+    function scrollToBottom() {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+
+    
+  </script>
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGG7_a_by8bV9TMuklAw1_oaRhSmbUdQw&libraries=places,directions&callback=initTransport"></script>
+
+</body>
+</html>

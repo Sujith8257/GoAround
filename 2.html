@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=390, initial-scale=1.0">
+  <title>Tourist Places</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+      text-align: center;
+      max-width: 390px;
+      margin: auto;
+      background-color: #f4f4f4;
+    }
+    #map {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 10px;
+    }
+    /* Filter select styling */
+    #filterSelect {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .results {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .result {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      text-align: left;
+    }
+    .result img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    .result div {
+      flex: 1;
+    }
+    /* Back button styling */
+    #backButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    function initMap() {
+      const location = localStorage.getItem("selectedLocation"); // Get location from storage
+      if (!location) {
+        alert("No location found. Please go back and enter a location.");
+        return;
+      }
+      document.getElementById('location-title').innerText = location;
+      
+      const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: { lat: 0, lng: 0 } // Placeholder center before geocoding
+      });
+      
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address: location }, (results, status) => {
+        if (status === 'OK') {
+          const loc = results[0].geometry.location;
+          map.setCenter(loc);
+          fetchPlaces(map, loc);
+          fetchTouristPlaces(location);
+        } else {
+          alert('Invalid location. Please enter a valid location.');
+        }
+      });
+    }
+
+    function fetchPlaces(map, loc) {
+      const service = new google.maps.places.PlacesService(map);
+      // We'll fetch restaurants and lodging (i.e. hotels)
+      const types = ['restaurant', 'lodging'];
+      
+      types.forEach(type => {
+        service.nearbySearch({
+          location: loc,
+          radius: 5000,
+          type: type
+        }, (results, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            displayResults(results, type);
+          }
+        });
+      });
+    }
+
+    function fetchTouristPlaces(location) {
+      const service = new google.maps.places.PlacesService(document.createElement('div'));
+      service.textSearch({
+        query: `Things to do in ${location}`
+      }, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          displayResults(results, 'tourist_attraction');
+        }
+      });
+    }
+
+    function displayResults(places, type) {
+      // Get the container by id; if it doesn't exist, create it
+      let container = document.getElementById(type);
+      if (!container) {
+        // Create a new container if missing (optional)
+        container = document.createElement('div');
+        container.id = type;
+        container.className = "results";
+        document.body.appendChild(container);
+      }
+      container.innerHTML = `<h3>${type.replace('_', ' ').toUpperCase()}</h3>`;
+      places.forEach(place => {
+        const div = document.createElement('div');
+        div.classList.add('result');
+        div.innerHTML = `
+          <img src="${place.photos ? place.photos[0].getUrl() : 'https://via.placeholder.com/100'}" alt="${place.name}">
+          <div>
+            <strong>${place.name}</strong><br>
+            ${place.vicinity || 'Location not available'}<br>
+            Rating: ${place.rating || 'No rating'}<br>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // Filter results by showing/hiding sections based on the selected option.
+    function filterResults() {
+      const filterValue = document.getElementById("filterSelect").value;
+      // If "all" is selected, display all categories.
+      if (filterValue === "all") {
+        document.getElementById("tourist_attraction").style.display = "block";
+      }
+      // If "hotels" is selected, display only the lodging category.
+      else if (filterValue === "hotels") {
+        document.getElementById("Hotels").style.display = "none";
+        
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Famous Places in <span id="location-title"></span></h1>
+  <div id="map"></div>
+  <!-- Filter dropdown to show all or hotels -->
+  <select id="filterSelect" onchange="filterResults()">
+    <option value="all">Famous Places</option>
+    <option value="hotels">Hotels</option>
+  </select>
+  <div class="results">
+    <div id="tourist_attraction"></div>
+    <div id="restaurant"></div>
+    <div id="lodging"></div>
+  </div>
+  <button id="backButton" onclick="window.location.href='home.html'">Back</button>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGG7_a_by8bV9TMuklAw1_oaRhSmbUdQw&libraries=places&callback=initMap"></script>
+</body>
+</html>

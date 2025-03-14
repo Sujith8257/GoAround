@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Trip OverView PDF</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    #homeButton {
+      background-color: #28a745;
+    }
+    .section {
+      background: white;
+      padding: 15px;
+      margin: 15px auto;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      text-align: left;
+    }
+    h2 {
+      color: #007bff;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+    #map {
+      width: 100%;
+      height: 300px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGG7_a_by8bV9TMuklAw1_oaRhSmbUdQw&callback=initMap" async defer></script>
+</head>
+<body>
+
+  <h1>Trip OverView</h1>
+
+  <div class="section">
+    <h2>📍 Selected Places</h2>
+    <ul id="placesList">
+      <li>Loading...</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🏨 Selected Hotels</h2>
+    <ul id="hotelsList">
+      <li>Loading...</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🗺️ Map</h2>
+    <div id="map"></div>
+  </div>
+
+  <button id="downloadButton">Download PDF</button>
+  <button id="homeButton" onclick="window.location.href='home.html'">Home</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.jspdf) {
+        console.log("jsPDF loaded successfully.");
+      } else {
+        console.error("jsPDF failed to load.");
+      }
+
+      displaySelectedItems();
+      initMap();
+    });
+
+    function displaySelectedItems() {
+      const placesList = document.getElementById("placesList");
+      const hotelsList = document.getElementById("hotelsList");
+
+      const selectedPlaces = JSON.parse(localStorage.getItem("selectedPlaces") || "[]");
+      const selectedHotels = JSON.parse(localStorage.getItem("selectedHotels") || "[]");
+
+      placesList.innerHTML = selectedPlaces.length 
+        ? selectedPlaces.map((place, index) => 
+            `<li><strong>${index + 1}. ${decodeURIComponent(place.name)}</strong><br>
+             📍 Address: ${decodeURIComponent(place.address)}<br>
+             📌 Landmark: ${decodeURIComponent(place.landmark || "Not provided")}<br>
+             📝 Description: ${decodeURIComponent(place.description || "No details available")}</li>`
+          ).join("")
+        : "<li>No places selected.</li>";
+
+      hotelsList.innerHTML = selectedHotels.length 
+        ? selectedHotels.map((hotel, index) => 
+            `<li><strong>${index + 1}. ${decodeURIComponent(hotel.name)}</strong><br>
+             🏠 Address: ${decodeURIComponent(hotel.address)}</li>`
+          ).join("")
+        : "<li>No hotels selected.</li>";
+    }
+
+    function initMap() {
+      const destination = decodeURIComponent(localStorage.getItem("toLocation") || "India");
+
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address: destination }, (results, status) => {
+        if (status === "OK") {
+          const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: results[0].geometry.location
+          });
+
+          new google.maps.Marker({
+            position: results[0].geometry.location,
+            map: map,
+            title: destination
+          });
+        } else {
+          console.error("Geocode failed: " + status);
+          document.getElementById("map").innerHTML = "<p>Map could not be loaded.</p>";
+        }
+      });
+    }
+
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = doc.internal.pageSize.getWidth();
+
+      const destination = localStorage.getItem("toLocation") || "No destination provided";
+      const selectedPlaces = JSON.parse(localStorage.getItem("selectedPlaces") || "[]");
+      const selectedHotels = JSON.parse(localStorage.getItem("selectedHotels") || "[]");
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(22);
+      doc.text(decodeURIComponent(destination), pageWidth / 2, 20, null, null, "center");
+
+      let y = 40;
+      doc.setFontSize(14);
+      doc.text("📍 Selected Places:", 10, y);
+      y += 10;
+
+      doc.setFont("helvetica", "normal");
+
+      if (selectedPlaces.length) {
+        selectedPlaces.forEach((place, index) => {
+          const placeDetails = [
+            `${index + 1}. ${decodeURIComponent(place.name)}`,
+            `   - Address: ${decodeURIComponent(place.address)}`,
+            `   - Landmark: ${decodeURIComponent(place.landmark || "Not provided")}`,
+            `   - Description: ${decodeURIComponent(place.description || "No details available")}`
+          ];
+          placeDetails.forEach(line => {
+            const splitText = doc.splitTextToSize(line, 180);
+            doc.text(splitText, 10, y);
+            y += splitText.length * 7;
+          });
+
+          if (y > 260) {
+            doc.addPage();
+            y = 20;
+          }
+          y += 5;
+        });
+      } else {
+        doc.text("No places selected.", 10, y);
+        y += 10;
+      }
+
+      doc.setFont("helvetica", "bold");
+      doc.text("🏨 Selected Hotels:", 10, y);
+      y += 10;
+      doc.setFont("helvetica", "normal");
+
+      if (selectedHotels.length) {
+        selectedHotels.forEach((hotel, index) => {
+          doc.text(`${index + 1}. ${decodeURIComponent(hotel.name)}`, 10, y);
+          doc.text(`   - Address: ${decodeURIComponent(hotel.address)}`, 15, y + 5);
+          y += 15;
+
+          if (y > 260) {
+            doc.addPage();
+            y = 20;
+          }
+        });
+      } else {
+        doc.text("No hotels selected.", 10, y);
+      }
+
+      try {
+        doc.save("trip_OverView.pdf");
+        console.log("PDF Downloaded Successfully! ✅");
+      } catch (error) {
+        console.error("Error downloading PDF:", error);
+        alert("Failed to generate PDF. Please try again.");
+      }
+    }
+
+    document.getElementById("downloadButton").addEventListener("click", () => {
+      downloadPDF();
+    });
+  </script>
+
+</body>
+</html>

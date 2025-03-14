@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="home.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <script>
+            function handleSearch() {
+                const searchInput = document.querySelector('.input-field').value;
+                localStorage.setItem("selectedLocation", searchInput);
+                window.location.href = '2.html';
+            }
+            function handleSearch1() {
+                const searchInput = "kodaikanal";
+                localStorage.setItem("selectedLocation", searchInput);
+                window.location.href = '2.html';
+            }
+            function handleSearch2() {
+                const searchInput = "Tirupati";
+                localStorage.setItem("selectedLocation", searchInput);
+                window.location.href = '2.html';
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGG7_a_by8bV9TMuklAw1_oaRhSmbUdQw&libraries=places&callback=initAutocomplete" async defer></script>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+            import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+            const firebaseConfig = {
+                apiKey: "AIzaSyCyiHHLJeqygENGGAdKlKL2es3Y7qJ4MNM",
+                authDomain: "goaround1-f7a84.firebaseapp.com",
+                projectId: "goaround1-f7a84",
+                storageBucket: "goaround1-f7a84.appspot.com",
+                messagingSenderId: "901999773807",
+                appId: "1:901999773807:web:cf07e3deaf7b0f0bef659a",
+                measurementId: "G-K182FF54Y9"
+            };
+            
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+
+            window.logout = function() {
+                signOut(auth).then(() => {
+                    window.location.href = 'login.html';
+                }).catch((error) => {
+                    console.error('Logout Error:', error);
+                });
+            };
+        </script>
+    </head>
+    <body>
+        <div class="home">
+            <div class="div">
+                <div class="overlap">
+                    <div class="input-container">
+                        <input type="email" class="input-field" placeholder="Wana go somewhere ?" required />
+                        <label class="input-label">Wana go somewhere ?</label>
+                    </div>
+                    <img class="vector" src="/img/search.svg" onclick="handleSearch()" style="cursor: pointer;"/>
+                    <div class="overlap-2">
+                        <div class="rectangle"></div>
+                        <img class="img" src="/img/person-circle.svg" alt="Pack Icon" onclick="window.location.href='set.html'"/>
+                        <img class="vector-2" src="/img/pack.svg" alt="Pack Icon" onclick="window.location.href='trippacker.html'" />
+                        <img class="vector-3" src="/img/log-in.svg" onclick="logout()" style="cursor: pointer;" />
+                        <img class="logo-no-background" src="img/logo-no-background-1.png" />
+                    </div>
+                    <div class="text-wrapper-2">↓↓ Explore More ↓↓</div>
+                </div>
+                <div class="group">
+                    <div class="overlap-3">
+                        <div class="rectangle-2"></div>
+                        <div class="text-wrapper-3">Famous places</div>
+                        <div class="kodai" onclick="handleSearch1()">
+                            <div class="overlap-group-2">
+                                <img class="ko" src="/img/ko.jpg" />
+                                <div class="text-wrapper-4">kodaikanal</div>
+                            </div>
+                        </div>
+                        <div class="tirupati" onclick="handleSearch2()">
+                            <div class="overlap-4">
+                                <div class="rectangle-3"></div>
+                                <div class="text-wrapper-5">Tirumala Temple</div>
+                                <img class="tri" src="/img/tri.jpg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent">
+                    <div class="overlap-3">
+                        <div class="rectangle-2"></div>
+                        <div class="text-wrapper-6">Recent bookings</div>
+                        <div class="text-wrapper-7">No Booking's Yet!!</div>
+                    </div>
+                </div>
+                <p class="p">Ⓒ All Rights Reserved By GoAround</p>
+            </div>
+        </div>
+    </body>
+</html>

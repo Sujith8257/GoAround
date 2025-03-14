@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="signup.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    </head>
+    <body>
+        <div class="signup">
+            <div class="overlap-wrapper">
+                <div class="overlap">
+                    <div class="form">
+                        <img class="logo-no-background" src="img/logo-no-background-1.png" />
+                        <button class="button" onclick="signUpWithEmailPassword()"><div class="text-wrapper">Submit</div></button>
+                        <div class="conform-password">
+                            <div class="input-container-2">
+                                <input type="password" id="confirm-password" class="input-field" placeholder="Conform Password" required />
+                                <label class="input-label">Conform Password</label>
+                                <img class="img" src="/img/pass.svg" onclick="toggleConfirmPasswordVisibility();" style="cursor: pointer;"/>
+                            </div>
+                        </div>
+                        <div class="input-container-1">
+                            <input type="password" id="password" class="input-field" placeholder="Enter Password" required />
+                            <label class="input-label">Enter Password</label>
+                            <img class="img" src="/img/pass.svg" onclick="toggleConfirmPasswordVisibility();" style="cursor: pointer;"/>
+                        </div>
+                        <div class="input-container">
+                            <input type="email" id="email" class="input-field" placeholder="Enter your e-mail" required />
+                            <label class="input-label">Enter your e-mail</label>
+                        </div>
+                        <img class="email" src="/img/mail.svg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+            import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+            
+            const firebaseConfig = {
+                apiKey: "AIzaSyCyiHHLJeqygENGGAdKlKL2es3Y7qJ4MNM",
+                authDomain: "goaround1-f7a84.firebaseapp.com",
+                projectId: "goaround1-f7a84",
+                storageBucket: "goaround1-f7a84.appspot.com",
+                messagingSenderId: "901999773807",
+                appId: "1:901999773807:web:cf07e3deaf7b0f0bef659a",
+                measurementId: "G-K182FF54Y9"
+            };
+            
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            
+            window.signUpWithEmailPassword = async () => {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match");
+                    return;
+                }
+                
+                try {
+                    await createUserWithEmailAndPassword(auth, email, password);
+                    window.location.href = 'home.html';
+                } catch (error) {
+                    console.error("Signup Error:", error);
+                    alert("Error signing up: " + error.message);
+                }
+            };
+            
+            function toggleConfirmPasswordVisibility() {
+                const confirmPasswordInput = document.getElementById('confirm-password');
+                const passwordInput = document.getElementById('password');
+                const passwordIcons = document.querySelectorAll('.img');
+    
+                if (confirmPasswordInput.type === 'password') {
+                    confirmPasswordInput.type = 'text';
+                    passwordInput.type = 'text';
+                    passwordIcons.forEach(icon => icon.src = '/img/pass1.svg');
+                } else {
+                    confirmPasswordInput.type = 'password';
+                    passwordInput.type = 'password';
+                    passwordIcons.forEach(icon => icon.src = '/img/pass.svg');
+                }
+            }
+        </script>
+    </body>
+</html>
